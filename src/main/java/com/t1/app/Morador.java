@@ -8,7 +8,7 @@ public class Morador {
 
   public Morador(String nome, String rG, int nroApartamento, boolean isAtivo) {
     this.nome = nome;
-    RG = rG;
+    this.RG = rG;
     this.nroApartamento = nroApartamento;
     this.isAtivo = isAtivo;
   }

@@ -1,23 +1,24 @@
 package com.t1.app;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class Entrega {
-  private int id;
+  private UUID id;
   private Morador retiradaPor;
   private LocalDate criadaEm;
   private LocalDate retiradaEm;
   private Operador operador;
   private String descricao;
 
-  public Entrega(int id, Operador operador, String descricao) {
-    this.id = id;
+  public Entrega(Operador operador, String descricao) {
+    this.id = new UUID();
     this.criadaEm = LocalDate.now();
     this.operador = operador;
     this.descricao = descricao;
   }
 
-  public int getId() {
+  public UUID getId() {
     return id;
   }
 
