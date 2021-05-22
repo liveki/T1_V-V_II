@@ -146,6 +146,8 @@ public class Menu {
 
     String leftAlignFormat = "| %-8d | %-10s | %-30s | %-4d | %-8s |%n";
 
+    System.out.println("Entregas não retiradas:\n");
+
     System.out.format("+----------+----------------+--------------------------------+------+----------+%n");
     System.out.format("| Entrega  |    Data/Hora   | Descricao                      | Apto | Operador |%n");
     System.out.format("+----------+----------------+--------------------------------+------+----------+%n");
