@@ -2,6 +2,7 @@
 Trabalho 1 da disciplina de Verificação e Validação de Software II
 
 - [x] O sistema deverá permitir escolher o operador/usuário atual.
+    
     Melhorias: Imprimir o operador nos submenus também.
 
 - [x] O sistema deverá permitir incluir um novo operador (não é necessário
@@ -10,6 +11,7 @@ implementar edição).
 - [x] O sistema deverá permitir excluir um operador desde que não existam registros associados a ele.
 
 - [ ] O sistema deverá permitir registrar uma nova entrega, com data e hora, descrição e apartamento de destino, bem como o operador que recebeu a entrega. Sugere-se gerar um ID numérico sequencial a cada nova entrega. (Sempre utilizar referências aos objetos).
+    
     Possiveis erros: Não validar operador, apartamento, (data e hora) automática?.
     Erro: Id em hash.
 
@@ -21,6 +23,7 @@ apartamento).
 - [ ] O sistema deverá permitir marcar um morador como “inativo” (não é necessário
 implementar edição nem exclusão). Um morador inativo não poderá ser mais
 associado a novas entregas.
+    
     Erro: Feature não incluida.
 
 - [ ] O sistema deverá permitir ao operador registrar a retirada de uma entrega por um
@@ -29,7 +32,8 @@ entrega já registrada anteriormente.
     Erro: Os ids da impressão não correspondem ao verdadeiro.
 
 - [ ] Deverá ser possível listar todos os moradores do prédio.
-    Erro? Não possui só com os nomes, a lista que o app possui é com todos os dados.
+
+    Erro: Não possui só com os nomes, a lista que o app possui é com todos os dados.
 
 - [x] Deverá ser possível procurar entregas pela descrição. Listar todas as encontradas.
 
@@ -40,6 +44,7 @@ ordenadas pela data.
 a. Nro total de entregas nos últimos 30 dias.
 b. Quantidade de entregas ainda não retiradas (total).
 c. Tempo médio entre registro e retirada das entregas.
+    
     Erro: Feature não incluida.
 
 - [ ] Deverá ser possível gerar um relatório como o exemplo abaixo, entre uma data
