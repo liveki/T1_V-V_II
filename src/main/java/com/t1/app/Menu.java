@@ -5,10 +5,10 @@ import java.util.Scanner;
 import java.util.UUID;
 
 import com.t1.app.exceptions.MoradorInativoException;
+import com.t1.app.exceptions.OperadorComRegistrosException;
 
 import java.util.ArrayList;
 import java.time.format.DateTimeFormatter;
-import java.text.DateFormat;
 import java.time.LocalDateTime;
 
 public class Menu {
@@ -172,11 +172,16 @@ public class Menu {
   public void listarMoradores() {
     List<Morador> moradores = this.condominio.listarMoradores();
 
-    System.out.println("-- Moradores:\n");
+    String leftAlignFormat = "| %-15s | %-16s | %-5d |%n";
+
+    System.out.format("+-----------------+------------------+-------+%n");
+    System.out.format("|       Nome      |        RG        |  Apto |%n");
+    System.out.format("+-----------------+------------------+-------+%n");
 
     if (moradores.size() > 0) {
       for (Morador morador : moradores) {
-        System.out.println(morador);
+        System.out.format(leftAlignFormat, morador.getNome(), morador.getRG(), morador.getNroApartamento());
+        System.out.format("+-----------------+------------------+-------+%n");
       }
       System.out.println("\n\n");
     } else {
@@ -187,9 +192,10 @@ public class Menu {
   public void menuOperador() {
     System.out.println("1 - Cadastrar operador");
     System.out.println("2 - Selecionar operador");
-    System.out.println("3 - Registrar retirada da entrega");
-    System.out.println("4 - Gerar relatorio");
-    System.out.println("5 - Voltar ");
+    System.out.println("3 - Excluir operador");
+    System.out.println("4 - Registrar retirada da entrega");
+    System.out.println("5 - Gerar relatorio");
+    System.out.println("6 - Voltar ");
 
     this.scanner.reset();
     int numOpcao = recebeNumero();
@@ -205,14 +211,23 @@ public class Menu {
         break;
       case 3:
         try {
-          this.RegistrarRetiradaEntrega();
+          this.excluirOperador();
+        } catch (OperadorComRegistrosException e1) {
+          System.out.println("Erro ao excluir morador.");
+          e1.printStackTrace();
+        }
+        this.menuOperador();
+        break;
+      case 4:
+        try {
+          this.registrarRetiradaEntrega();
         } catch (MoradorInativoException e) {
           System.out.println("Erro ao retirar entrega.");
           e.printStackTrace();
         }
         this.menuOperador();
         break;
-      case 4:
+      case 5:
         Scanner in = new Scanner(System.in);
 
         System.out.println("Insira a data inicial do relatorio (dd/MM/yyyy HH:mm)");
@@ -239,7 +254,7 @@ public class Menu {
 
         this.menuOperador();
         break;
-      case 5:
+      case 6:
         break;
       default:
         System.out.println("Opção inexistente");
@@ -273,7 +288,29 @@ public class Menu {
     this.scanner.reset();
   }
 
-  public void RegistrarRetiradaEntrega() throws MoradorInativoException {
+  public void excluirOperador() throws OperadorComRegistrosException {
+    System.out.println("Listando todos os operadores...");
+
+    for (int i = 0; i < condominio.getOperadores().size(); i++)
+      System.out.println((i + 1) + " - " + condominio.getOperadores().get(i).getNome());
+
+    System.out.println("\nSelecione um operador para excluir: ");
+    int indiceOperador = recebeNumero();
+
+    Operador operadorASerRemovido = this.condominio.getOperadores().get(indiceOperador - 1);
+
+    this.condominio.excluirOperador(operadorASerRemovido);
+
+    if (operadorAtual != null) {
+      if (operadorASerRemovido.getNome().equals(operadorAtual.getNome())) {
+        operadorAtual = null;
+      }
+    }
+
+    this.scanner.reset();
+  }
+
+  public void registrarRetiradaEntrega() throws MoradorInativoException {
     boolean testandoNumeroApartamento = false;
     boolean testandoId = false;
     List<Entrega> entregasNaoRetiradas = this.condominio.listarEntregasNaoRetiradas();
