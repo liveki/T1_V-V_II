@@ -31,11 +31,11 @@ morador. Registrar data e hora, o morador que retirou, relacionando com qual
 entrega já registrada anteriormente.
     Erro: Os ids da impressão não correspondem ao verdadeiro.
 
-- [ ] Deverá ser possível listar todos os moradores do prédio.
+- [x] Deverá ser possível listar todos os moradores do prédio.
 
     Erro: Não possui só com os nomes, a lista que o app possui é com todos os dados.
 
-- [x] Deverá ser possível procurar entregas pela descrição. Listar todas as encontradas.
+- [ ] Deverá ser possível procurar entregas pela descrição. Listar todas as encontradas.
 
 - [x] Deverá ser possível listar todas as entregas que ainda não foram retiradas,
 ordenadas pela data.
