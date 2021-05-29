@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
-import java.util.UUID;
 
 import com.t1.app.exceptions.MoradorInativoException;
 import com.t1.app.exceptions.OperadorComRegistrosException;
@@ -18,6 +17,7 @@ public class Condominio {
   private List<Operador> listaOperadores;
   private List<Morador> listaMoradores;
   private List<Entrega> listaEntregas;
+  private GeradorId geradorId;
 
   public Condominio() {
     carregarMoradores("src/inputFiles/dadosMorador.csv");
@@ -45,6 +45,7 @@ public class Condominio {
   }
 
   public void registrarEntrega(Entrega entrega) {
+    entrega.setId(geradorId.getProximoId());
     this.listaEntregas.add(entrega);
   }
 
@@ -200,7 +201,7 @@ public class Condominio {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         LocalDateTime novaData = LocalDateTime.parse(data[1], formatter);
 
-        entrega.setUUID(UUID.nameUUIDFromBytes(data[0].getBytes()));
+        entrega.setId(Integer.parseInt(data[0]));
         entrega.setCriadaEm(novaData);
 
         if (data.length > 5) {
@@ -214,6 +215,7 @@ public class Condominio {
       }
 
       this.listaEntregas = entregas;
+      this.geradorId = new GeradorId(entregas.size() + 1);
       leitor.close();
 
     } catch (FileNotFoundException e) {

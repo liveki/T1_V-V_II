@@ -2,7 +2,6 @@ package com.t1.app.menus.entrega;
 
 import java.util.List;
 import java.util.Scanner;
-import java.util.UUID;
 
 import com.t1.app.Condominio;
 import com.t1.app.Entrega;
@@ -36,7 +35,7 @@ public class RetirarEntrega {
 
     if (condominio.listarEntregasNaoRetiradas().size() > 0) {
       System.out.println("Selecione o id da entrega que deseja");
-      UUID id = UUID.nameUUIDFromBytes((recebeNumero().toString().getBytes()));
+      int id = recebeNumero();
 
       for (Entrega entregasNaoRetirada : entregasNaoRetiradas) {
         if (id == entregasNaoRetirada.getId()) {

@@ -18,16 +18,13 @@ public class ListarEntregasNaoRetiradas {
     System.out.format("| Entrega  |    Data/Hora   | Descricao                      | Apto | Operador |%n");
     System.out.format("+----------+----------------+--------------------------------+------+----------+%n");
 
-    int indice = 1;
-
     if (entregasNaoRetiradas.size() > 0) {
       for (Entrega entrega : entregasNaoRetiradas) {
         String dataCompleta = DateFormatter.getDataEmFormatoTexto(entrega.getCriadaEm()) + " "
             + DateFormatter.getHorarioEmFormatoTexto(entrega.getCriadaEm());
 
-        System.out.format(leftAlignFormat, indice, dataCompleta, entrega.getDescricao(), entrega.getAptoDestino(),
-            entrega.getOperador());
-        indice++;
+        System.out.format(leftAlignFormat, entrega.getId(), dataCompleta, entrega.getDescricao(),
+            entrega.getAptoDestino(), entrega.getOperador());
       }
       System.out.format("+----------+----------------+--------------------------------+------+----------+%n");
     } else {
