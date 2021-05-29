@@ -1,10 +1,9 @@
 package com.t1.app;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class Entrega {
-  private UUID id;
+  private int id;
   private Morador retiradaPor;
   private LocalDateTime criadaEm;
   private LocalDateTime retiradaEm;
@@ -13,18 +12,17 @@ public class Entrega {
   private int aptoDestino;
 
   public Entrega(Operador operador, String descricao, int aptoDestino) {
-    this.id = UUID.randomUUID();
-    this.criadaEm = LocalDateTime.now();
+    this.criadaEm = DataHoraLocal.agora();
     this.operador = operador;
     this.descricao = descricao;
     this.aptoDestino = aptoDestino;
   }
 
-  public UUID getId() {
+  public int getId() {
     return id;
   }
 
-  public void setUUID(UUID id) {
+  public void setId(int id) {
     this.id = id;
   }
 
