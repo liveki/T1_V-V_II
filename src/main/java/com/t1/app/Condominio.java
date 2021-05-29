@@ -2,7 +2,6 @@ package com.t1.app;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -141,17 +140,8 @@ public class Condominio {
     return "";
   }
 
-  public String gerarRelatorioEntregas(LocalDate dataInicial, LocalDate dataFinal) {
-    /*
-     * Deverá ser possível gerar um relatório como o exemplo abaixo, entre uma data
-     * inicial e uma data final escolhidas pelo operador (note que há entregas ainda
-     * não retiradas):
-     */
-    return "";
-  }
-
   private void carregarOperadores(String path) {
-     try {
+    try {
       File arquivo = new File(path);
       Scanner leitor = new Scanner(arquivo);
 
@@ -214,10 +204,11 @@ public class Condominio {
         entrega.setCriadaEm(novaData);
 
         if (data.length > 5) {
-          Morador moradorQueRetirou = procurarMoradorPorRG(data[6]);
+          Morador moradorQueRetirou = procurarMoradorPorNome(data[6]);
           entrega.setRetiradaPor(moradorQueRetirou);
-          entrega.setRetiradaEm(LocalDateTime.parse(data[5]));
+          entrega.setRetiradaEm(LocalDateTime.parse(data[5], formatter));
         }
+
         entregas.add(entrega);
 
       }
@@ -241,8 +232,8 @@ public class Condominio {
     return null;
   }
 
-  private Morador procurarMoradorPorRG(String rg) {
-    Optional<Morador> morador = listaMoradores.stream().filter(m -> m.getRG().equals(rg)).findFirst();
+  private Morador procurarMoradorPorNome(String nome) {
+    Optional<Morador> morador = listaMoradores.stream().filter(m -> m.getNome().equals(nome)).findFirst();
 
     if (morador.isPresent()) {
       return morador.get();
@@ -253,5 +244,17 @@ public class Condominio {
 
   public List<Operador> getOperadores() {
     return listaOperadores;
+  }
+
+  public List<Morador> getMoradores() {
+    return listaMoradores;
+  }
+
+  public List<Entrega> getEntregas() {
+    return listaEntregas;
+  }
+
+  public Operador getOperadorAtual() {
+    return operadorAtual;
   }
 }
