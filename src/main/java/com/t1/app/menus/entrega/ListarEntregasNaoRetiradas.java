@@ -1,5 +1,6 @@
 package com.t1.app.menus.entrega;
 
+import java.util.Comparator;
 import java.util.List;
 
 import com.t1.app.Condominio;
@@ -9,6 +10,8 @@ import com.t1.app.Entrega;
 public class ListarEntregasNaoRetiradas {
   public void run(Condominio condominio) {
     List<Entrega> entregasNaoRetiradas = condominio.listarEntregasNaoRetiradas();
+    Comparator<Entrega> comparaData = Comparator.comparing(Entrega::getCriadaEm).reversed();
+    entregasNaoRetiradas.sort(comparaData);
 
     String leftAlignFormat = "| %-8d | %-10s | %-30s | %-4d | %-8s |%n";
 
