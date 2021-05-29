@@ -12,7 +12,7 @@ public class Entrega {
   private int aptoDestino;
 
   public Entrega(Operador operador, String descricao, int aptoDestino) {
-    this.criadaEm = LocalDateTime.now();
+    this.criadaEm = DataHoraLocal.agora();
     this.operador = operador;
     this.descricao = descricao;
     this.aptoDestino = aptoDestino;
