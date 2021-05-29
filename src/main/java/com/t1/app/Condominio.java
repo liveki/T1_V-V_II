@@ -21,9 +21,9 @@ public class Condominio {
   private List<Entrega> listaEntregas;
 
   public Condominio() {
-    carregarMoradores();
-    carregarOperadores();
-    carregarEntregas();
+    carregarMoradores("src/inputFiles/dadosMorador.csv");
+    carregarOperadores("src/inputFiles/dadosOperador.csv");
+    carregarEntregas("src/inputFiles/dadosEntrega.csv");
   }
 
   public void definirOperadorAtual(Operador operador) {
@@ -150,10 +150,8 @@ public class Condominio {
     return "";
   }
 
-  private void carregarOperadores() {
-    String path = "src/inputFiles/dadosOperador.csv";
-
-    try {
+  private void carregarOperadores(String path) {
+     try {
       File arquivo = new File(path);
       Scanner leitor = new Scanner(arquivo);
 
@@ -175,9 +173,7 @@ public class Condominio {
     }
   }
 
-  private void carregarMoradores() {
-    String path = "src/inputFiles/dadosMorador.csv";
-
+  private void carregarMoradores(String path) {
     try {
       File arquivo = new File(path);
       Scanner leitor = new Scanner(arquivo);
@@ -198,8 +194,7 @@ public class Condominio {
     }
   }
 
-  private void carregarEntregas() {
-    String path = "src/inputFiles/dadosEntrega.csv";
+  private void carregarEntregas(String path) {
     try {
       File arquivo = new File(path);
       Scanner leitor = new Scanner(arquivo);
