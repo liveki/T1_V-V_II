@@ -13,7 +13,6 @@ implementar edição).
 - [ ] O sistema deverá permitir registrar uma nova entrega, com data e hora, descrição e apartamento de destino, bem como o operador que recebeu a entrega. Sugere-se gerar um ID numérico sequencial a cada nova entrega. (Sempre utilizar referências aos objetos).
     
     Possiveis erros: Não validar operador, apartamento, (data e hora) automática?.
-    Erro: Id em hash.
 
 - [x] O sistema deverá manter uma lista de moradores (nome, RG e nro do
 apartamento).
@@ -26,10 +25,9 @@ associado a novas entregas.
     
     Erro: Feature não incluida.
 
-- [ ] O sistema deverá permitir ao operador registrar a retirada de uma entrega por um
+- [x] O sistema deverá permitir ao operador registrar a retirada de uma entrega por um
 morador. Registrar data e hora, o morador que retirou, relacionando com qual
 entrega já registrada anteriormente.
-    Erro: Os ids da impressão não correspondem ao verdadeiro.
 
 - [x] Deverá ser possível listar todos os moradores do prédio.
 
