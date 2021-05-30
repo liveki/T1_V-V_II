@@ -33,7 +33,7 @@ entrega já registrada anteriormente.
 
     Erro: Não possui só com os nomes, a lista que o app possui é com todos os dados.
 
-- [ ] Deverá ser possível procurar entregas pela descrição. Listar todas as encontradas.
+- [x] Deverá ser possível procurar entregas pela descrição. Listar todas as encontradas.
 
 - [x] Deverá ser possível listar todas as entregas que ainda não foram retiradas,
 ordenadas pela data.
