@@ -45,7 +45,7 @@ c. Tempo médio entre registro e retirada das entregas.
     
     Erro: Feature não incluida.
 
-- [ ] Deverá ser possível gerar um relatório como o exemplo abaixo, entre uma data
+- [x] Deverá ser possível gerar um relatório como o exemplo abaixo, entre uma data
 inicial e uma data final escolhidas pelo operador (note que há entregas ainda não
 retiradas):
 

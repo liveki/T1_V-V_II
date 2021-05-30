@@ -259,4 +259,16 @@ public class Condominio {
   public Operador getOperadorAtual() {
     return operadorAtual;
   }
+
+  public List<Entrega> gerarRelatorio(LocalDateTime dataInicial, LocalDateTime dataFinal) {
+    List<Entrega> resultado = new ArrayList<>(0);
+
+    this.listaEntregas.stream().forEach(entrega -> {
+      if (entrega.getCriadaEm().isAfter(dataInicial) && entrega.getCriadaEm().isBefore(dataFinal)) {
+        resultado.add(entrega);
+      }
+    });
+
+    return resultado;
+  }
 }
