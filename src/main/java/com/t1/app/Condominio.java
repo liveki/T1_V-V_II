@@ -112,7 +112,7 @@ public class Condominio {
     List<Entrega> entregasEncontradas = new ArrayList<>(0);
 
     for (Entrega entrega : listaEntregas) {
-      if (entrega.getDescricao().contains(termoPesquisa)) {
+      if (entrega.getDescricao().toLowerCase().contains(termoPesquisa.toLowerCase())) {
         entregasEncontradas.add(entrega);
       }
     }
