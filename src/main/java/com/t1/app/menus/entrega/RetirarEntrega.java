@@ -34,7 +34,7 @@ public class RetirarEntrega {
     listarEntregasNaoRetiradas.run(condominio);
 
     if (condominio.listarEntregasNaoRetiradas().size() > 0) {
-      System.out.println("Selecione o id da entrega que deseja");
+      System.out.print("Selecione o id da entrega que deseja retirar: ");
       int id = recebeNumero();
 
       for (Entrega entregasNaoRetirada : entregasNaoRetiradas) {
@@ -45,8 +45,7 @@ public class RetirarEntrega {
 
       if (testandoId) {
         List<Morador> moradorQueVaiRetirar = condominio.listarMoradores();
-        System.out.println(moradorQueVaiRetirar.toString().replace('[', ' ').replace(']', ' '));
-        System.out.println("Coloque o numero do apartamento do morador que vai retirar a entrega");
+        System.out.print("Coloque o numero do apartamento do morador que vai retirar a entrega: ");
         int numeroApartamento = recebeNumero();
         for (Morador morador : moradorQueVaiRetirar) {
           if (numeroApartamento == morador.getNroApartamento()) {

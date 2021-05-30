@@ -81,7 +81,7 @@ public class Condominio {
   }
 
   public void retirarEntrega(Entrega entrega, Morador morador) throws MoradorInativoException {
-    if (morador.isAtivo()) {
+    if (!morador.isAtivo()) {
       throw new MoradorInativoException(morador.getNome());
     }
 
