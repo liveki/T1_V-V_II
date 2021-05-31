@@ -81,7 +81,7 @@ public class Condominio {
   }
 
   public void retirarEntrega(Entrega entrega, Morador morador) throws MoradorInativoException {
-    if (morador.isAtivo()) {
+    if (!morador.isAtivo()) {
       throw new MoradorInativoException(morador.getNome());
     }
 
@@ -112,7 +112,7 @@ public class Condominio {
     List<Entrega> entregasEncontradas = new ArrayList<>(0);
 
     for (Entrega entrega : listaEntregas) {
-      if (entrega.getDescricao().contains(termoPesquisa)) {
+      if (entrega.getDescricao().toLowerCase().contains(termoPesquisa.toLowerCase())) {
         entregasEncontradas.add(entrega);
       }
     }
@@ -258,5 +258,17 @@ public class Condominio {
 
   public Operador getOperadorAtual() {
     return operadorAtual;
+  }
+
+  public List<Entrega> gerarRelatorio(LocalDateTime dataInicial, LocalDateTime dataFinal) {
+    List<Entrega> resultado = new ArrayList<>(0);
+
+    this.listaEntregas.stream().forEach(entrega -> {
+      if (entrega.getCriadaEm().isAfter(dataInicial) && entrega.getCriadaEm().isBefore(dataFinal)) {
+        resultado.add(entrega);
+      }
+    });
+
+    return resultado;
   }
 }

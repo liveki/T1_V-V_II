@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.t1.app.Condominio;
+import com.t1.app.DateFormatter;
 import com.t1.app.Entrega;
+import com.t1.app.Morador;
 
 public class GerarRelatorio {
   private Scanner scanner;
@@ -40,46 +42,40 @@ public class GerarRelatorio {
   }
 
   private void gerarRelatorio(LocalDateTime dataInicial, LocalDateTime dataFinal, Condominio condominio) {
-    List<Entrega> entregas = condominio.getEntregas();
-    List<Entrega> entregasEntreAsDatas = new ArrayList<>();
+    List<Entrega> entregasEntreAsDatas = condominio.gerarRelatorio(dataInicial, dataFinal);
 
-    for (Entrega entrega : entregas) {
-      boolean isBefore = entrega.getCriadaEm().isBefore(dataFinal);
-      boolean isAfter = entrega.getCriadaEm().isAfter(dataInicial);
-
-      if (isBefore && isAfter) {
-        entregasEntreAsDatas.add(entrega);
-      }
+    if (entregasEntreAsDatas.size() == 0) {
+      System.out.println("Nenhum entrega entre as datas escolhias.");
+      return;
     }
 
-    String leftAlignFormat = "| %-8d | %-19s |";
-    String leftAlignFormat2 = " %-50s | %-5d |";
-    String leftAlignFormat3 = " %-8s | %-19s |";
-    String leftAlignFormat4 = "%-20s |%n";
+    String leftAlignFormat = "| %-8d | %-10s | %-30s | %-4d | %-8s | %-15s | %-20s |%n";
+
+    System.out.println("Resultado:\n");
+
     System.out.format(
-        "+----------+---------------------+----------------------+-----------------------------+-------+----------+---------------------+---------------------+%n");
+        "+----------+----------------+--------------------------------+------+----------+-----------------+----------------------+%n");
     System.out.format(
-        "| Entrega  |      Data/hora      |                    Descricao                       |  Apto | Operador |      Retirada       |        Morador      |%n");
+        "| Entrega  |    Data/Hora   | Descricao                      | Apto | Operador |     Retirada    |       Morador        |%n");
     System.out.format(
-        "+----------+---------------------+----------------------+-----------------------------+-------+----------+---------------------+---------------------+%n");
-    for (Entrega entregasEntreAsData : entregasEntreAsDatas) {
-      if (entregasEntreAsData.getRetiradaEm() == null && entregasEntreAsData.getRetiradaPor() == null) {
-        System.out.format(leftAlignFormat, entregasEntreAsData.getId(),
-            entregasEntreAsData.getCriadaEm().toString().substring(0, 19).replace('T', ' '));
-        System.out.format(leftAlignFormat2, entregasEntreAsData.getDescricao(), entregasEntreAsData.getAptoDestino());
-        System.out.format(leftAlignFormat3, entregasEntreAsData.getOperador(), "NR");
-        System.out.format(leftAlignFormat4, "NR");
-      } else {
-        System.out.format(leftAlignFormat, entregasEntreAsData.getId(),
-            entregasEntreAsData.getCriadaEm().toString().substring(0, 19).replace('T', ' '));
-        System.out.format(leftAlignFormat2, entregasEntreAsData.getDescricao(), entregasEntreAsData.getAptoDestino());
-        System.out.format(leftAlignFormat3, entregasEntreAsData.getOperador(),
-            entregasEntreAsData.getRetiradaEm().toString().substring(0, 19).replace('T', ' '));
-        System.out.format(leftAlignFormat4, entregasEntreAsData.getRetiradaPor().getNome());
-      }
+        "+----------+----------------+--------------------------------+------+----------+-----------------+----------------------+%n");
+
+    for (Entrega entrega : entregasEntreAsDatas) {
+      LocalDateTime retiradaEm = entrega.getRetiradaEm();
+      String criadaEm = DateFormatter.getDataEmFormatoTexto(entrega.getCriadaEm()) + " "
+          + DateFormatter.getHorarioEmFormatoTexto(entrega.getCriadaEm());
+
+      String dataRetirada = retiradaEm == null ? ""
+          : DateFormatter.getDataEmFormatoTexto(retiradaEm) + " " + DateFormatter.getHorarioEmFormatoTexto(retiradaEm);
+      Morador morador = entrega.getRetiradaPor();
+
+      String retiradaPor = morador == null ? "" : morador.getNome();
+
+      System.out.format(leftAlignFormat, entrega.getId(), criadaEm, entrega.getDescricao(), entrega.getAptoDestino(),
+          entrega.getOperador().toString(), dataRetirada, retiradaPor);
     }
     System.out.format(
-        "+----------+---------------------+----------------------+-----------------------------+-------+----------+---------------------+---------------------+%n");
+        "+----------+----------------+--------------------------------+------+----------+-----------------+----------------------+%n");
     System.out.println("NR = Nao retirado \n");
   }
 }
