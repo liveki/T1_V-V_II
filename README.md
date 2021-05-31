@@ -38,7 +38,7 @@ entrega já registrada anteriormente.
 - [x] Deverá ser possível listar todas as entregas que ainda não foram retiradas,
 ordenadas pela data.
 
-- [ ] Deverá haver um painel (dashboard) com as seguintes informações:
+- [x] Deverá haver um painel (dashboard) com as seguintes informações:
 a. Nro total de entregas nos últimos 30 dias.
 b. Quantidade de entregas ainda não retiradas (total).
 c. Tempo médio entre registro e retirada das entregas.

@@ -11,6 +11,7 @@ public class MenuEntregas {
   private ListarEntregasNaoRetiradas listarEntregasNaoRetiradas;
   private PesquisarPorDescricao pesquisarPorDescricao;
   private GerarRelatorio gerarRelatorio;
+  private GerarDashboard gerarDashboard;
 
   public MenuEntregas() {
     this.scanner = new Scanner(System.in);
@@ -19,6 +20,7 @@ public class MenuEntregas {
     this.listarEntregasNaoRetiradas = new ListarEntregasNaoRetiradas();
     this.pesquisarPorDescricao = new PesquisarPorDescricao();
     this.gerarRelatorio = new GerarRelatorio();
+    this.gerarDashboard = new GerarDashboard();
   }
 
   private Integer recebeNumero() {
@@ -38,7 +40,8 @@ public class MenuEntregas {
     System.out.println("3 - Listar entregas não retiradas");
     System.out.println("4 - Procurar entrega por descrição ");
     System.out.println("5 - Gerar relatório ");
-    System.out.println("6 - Voltar ");
+    System.out.println("6 - Visualizar dashboard ");
+    System.out.println("7 - Voltar ");
 
     this.scanner.reset();
     int numOpcao = recebeNumero();
@@ -65,6 +68,10 @@ public class MenuEntregas {
         this.run(condominio);
         break;
       case 6:
+        this.gerarDashboard.run(condominio);
+        this.run(condominio);
+        break;
+      case 7:
         return;
       default:
         System.out.println("Opção inexistente");
