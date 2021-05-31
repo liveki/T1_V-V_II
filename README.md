@@ -1,5 +1,5 @@
 # T1_V-V_II
-Trabalho 1 da disciplina de Verificação e Validação de Software II
+Trabalho 1 da disciplina de Verificação e Validação de Software II.
 
 - [x] O sistema deverá permitir escolher o operador/usuário atual.
     
