@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.Scanner;
 
 import com.t1.app.exceptions.MoradorInativoException;
+import com.t1.app.exceptions.MoradorNaoEncontradoException;
 import com.t1.app.exceptions.OperadorComRegistrosException;
 
 public class Condominio {
@@ -44,7 +45,13 @@ public class Condominio {
     this.listaOperadores.remove(operador);
   }
 
-  public void registrarEntrega(Entrega entrega) {
+  public void registrarEntrega(Entrega entrega) throws MoradorInativoException, MoradorNaoEncontradoException {
+    Morador morador = this.procurarMoradorPorApto(entrega.getAptoDestino());
+
+    if (!morador.isAtivo()) {
+      throw new MoradorInativoException(morador.getNome());
+    }
+
     entrega.setId(geradorId.getProximoId());
     this.listaEntregas.add(entrega);
   }
@@ -130,15 +137,6 @@ public class Condominio {
     });
 
     return entregasEncontradas;
-  }
-
-  public String gerarDadosDashboard() {
-    /*
-     * 12. Deverá haver um painel (dashboard) com as seguintes informações: a. Nro
-     * total de entregas nos últimos 30 dias. b. Quantidade de entregas ainda não
-     * retiradas (total). c. Tempo médio entre registro e retirada das entrega
-     */
-    return "";
   }
 
   private void carregarOperadores(String path) {
@@ -242,6 +240,16 @@ public class Condominio {
     }
 
     return null;
+  }
+
+  public Morador procurarMoradorPorApto(int nroApto) throws MoradorNaoEncontradoException {
+    Optional<Morador> morador = listaMoradores.stream().filter(m -> m.getNroApartamento() == nroApto).findFirst();
+
+    if (!morador.isPresent()) {
+      throw new MoradorNaoEncontradoException();
+    }
+
+    return morador.get();
   }
 
   public List<Operador> getOperadores() {

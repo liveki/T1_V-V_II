@@ -7,6 +7,7 @@ import com.t1.app.Condominio;
 import com.t1.app.Entrega;
 import com.t1.app.Morador;
 import com.t1.app.exceptions.MoradorInativoException;
+import com.t1.app.exceptions.MoradorNaoEncontradoException;
 
 public class RetirarEntrega {
   private Scanner scanner;
@@ -27,45 +28,45 @@ public class RetirarEntrega {
   }
 
   public void run(ListarEntregasNaoRetiradas listarEntregasNaoRetiradas, Condominio condominio) {
-    boolean testandoNumeroApartamento = false;
-    boolean testandoId = false;
+    boolean isInvalidNumber = true;
+    boolean isInvalidId = true;
     List<Entrega> entregasNaoRetiradas = condominio.listarEntregasNaoRetiradas();
+    Morador moradorQueVaiRetirar = null;
+    Entrega entrega = null;
 
     listarEntregasNaoRetiradas.run(condominio);
 
     if (condominio.listarEntregasNaoRetiradas().size() > 0) {
-      System.out.print("Selecione o id da entrega que deseja retirar: ");
-      int id = recebeNumero();
 
-      for (Entrega entregasNaoRetirada : entregasNaoRetiradas) {
-        if (id == entregasNaoRetirada.getId()) {
-          testandoId = true;
+      while (isInvalidId) {
+        System.out.print("Selecione o id da entrega que deseja retirar: ");
+        int id = recebeNumero();
+
+        entrega = entregasNaoRetiradas.stream().filter(e -> e.getId() == id).findFirst().orElse(null);
+
+        if (entrega == null) {
+          System.out.println("id de entrega inválido!");
+        } else {
+          isInvalidId = false;
         }
       }
 
-      if (testandoId) {
-        List<Morador> moradorQueVaiRetirar = condominio.listarMoradores();
+      while (isInvalidNumber) {
         System.out.print("Coloque o numero do apartamento do morador que vai retirar a entrega: ");
         int numeroApartamento = recebeNumero();
-        for (Morador morador : moradorQueVaiRetirar) {
-          if (numeroApartamento == morador.getNroApartamento()) {
-            testandoNumeroApartamento = true;
-            for (Entrega entregaNaoRetirada : entregasNaoRetiradas) {
-              if (id == entregaNaoRetirada.getId()) {
-                try {
-                  condominio.retirarEntrega(entregaNaoRetirada, morador);
-                } catch (MoradorInativoException e) {
-                  System.out.println(e.getMessage());
-                }
-              }
-            }
-          }
+
+        try {
+          moradorQueVaiRetirar = condominio.procurarMoradorPorApto(numeroApartamento);
+          isInvalidNumber = false;
+        } catch (MoradorNaoEncontradoException e) {
+          System.out.println(e.getMessage());
         }
       }
-      if (!testandoId) {
-        System.out.println("Erro: Id nao localizado");
-      } else if (!testandoNumeroApartamento) {
-        System.out.println("Erro: Numero de apartamento nao localizado");
+
+      try {
+        condominio.retirarEntrega(entrega, moradorQueVaiRetirar);
+      } catch (MoradorInativoException e) {
+        System.out.println(e.getMessage());
       }
     }
   }

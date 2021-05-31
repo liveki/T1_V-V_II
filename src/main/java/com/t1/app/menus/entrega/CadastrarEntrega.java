@@ -5,6 +5,8 @@ import java.util.Scanner;
 import com.t1.app.Condominio;
 import com.t1.app.Entrega;
 import com.t1.app.Operador;
+import com.t1.app.exceptions.MoradorInativoException;
+import com.t1.app.exceptions.MoradorNaoEncontradoException;
 
 public class CadastrarEntrega {
   private Scanner scanner;
@@ -38,7 +40,13 @@ public class CadastrarEntrega {
     Operador operadorResponsavel = new Operador(nomeOperador);
     Entrega entrega = new Entrega(operadorResponsavel, descricaoPedido, numeroApartamento);
 
-    condominio.registrarEntrega(entrega);
+    try {
+      condominio.registrarEntrega(entrega);
+    } catch (MoradorInativoException e) {
+      System.out.println(e.getMessage());
+    } catch (MoradorNaoEncontradoException e) {
+      System.out.println(e.getMessage());
+    }
 
     System.out.println("Entrega cadastrada ");
   }
