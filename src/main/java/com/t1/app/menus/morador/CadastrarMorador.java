@@ -24,16 +24,45 @@ public class CadastrarMorador {
   }
 
   public void run(Condominio condominio) {
-    System.out.println("Digite o nome do morador: ");
-    final String nomeOperador = this.scanner.nextLine();
+    String nomeMorador = "";
+    String rgMorador = "";
+    Integer numeroApartamento = -1;
+    /*
+     * while (nomeMorador.length() <= 3) {
+     * System.out.println("Digite o nome do morador: "); nomeMorador =
+     * this.scanner.nextLine(); if (condominio.procurarMoradorPorNome(nomeMorador)
+     * != null) {
+     * System.out.println("Ja existe um morador cadastrado com esse nome ");
+     * nomeMorador = "ab"; } }
+     */
+    boolean isInvalidNome = true;
+    while (isInvalidNome) {
+      System.out.print("Digite o nome do morador: ");
+      nomeMorador = this.scanner.nextLine();
 
-    System.out.println("Digite o RG do morador: ");
-    final String rgMorador = this.scanner.nextLine();
-
-    System.out.println("Digite o número do apartamento: ");
-    final Integer numeroApartamento = recebeNumero();
-
-    final Morador morador = new Morador(nomeOperador, rgMorador, numeroApartamento, true);
+      if (nomeMorador.length() <= 5) {
+        System.out.println("Nome Invalido! ");
+      } else {
+        isInvalidNome = false;
+      }
+    }
+    while (rgMorador.length() != 10) {
+      System.out.println("Digite o RG do morador: ");
+      rgMorador = this.scanner.nextLine();
+      if (condominio.procurarMoradorPorRG(rgMorador) != null) {
+        System.out.println("Ja existe um morador cadastrado com esse RG ");
+        rgMorador = "0";
+      }
+    }
+    while (numeroApartamento <= -1) {
+      System.out.println("Digite o número do apartamento: ");
+      numeroApartamento = recebeNumero();
+      if (condominio.procurarMoradorPorApto(numeroApartamento) != null) {
+        System.out.println("Ja existe um morador cadastrado neste apartamento ");
+        numeroApartamento = -1;
+      }
+    }
+    final Morador morador = new Morador(nomeMorador, rgMorador, numeroApartamento, true);
 
     condominio.incluirMorador(morador);
   }

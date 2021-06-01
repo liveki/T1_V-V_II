@@ -232,7 +232,7 @@ public class Condominio {
     return null;
   }
 
-  private Morador procurarMoradorPorNome(String nome) {
+  public Morador procurarMoradorPorNome(String nome) {
     Optional<Morador> morador = listaMoradores.stream().filter(m -> m.getNome().equals(nome)).findFirst();
 
     if (morador.isPresent()) {
@@ -242,11 +242,21 @@ public class Condominio {
     return null;
   }
 
-  public Morador procurarMoradorPorApto(int nroApto) throws MoradorNaoEncontradoException {
+  public Morador procurarMoradorPorRG(String rg) {
+    Optional<Morador> morador = listaMoradores.stream().filter(m -> m.getRG().equals(rg)).findFirst();
+
+    if (morador.isPresent()) {
+      return morador.get();
+    }
+
+    return null;
+  }
+
+  public Morador procurarMoradorPorApto(int nroApto) {
     Optional<Morador> morador = listaMoradores.stream().filter(m -> m.getNroApartamento() == nroApto).findFirst();
 
     if (!morador.isPresent()) {
-      throw new MoradorNaoEncontradoException();
+      return null;
     }
 
     return morador.get();

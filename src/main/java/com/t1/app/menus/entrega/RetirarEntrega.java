@@ -55,12 +55,8 @@ public class RetirarEntrega {
         System.out.print("Coloque o numero do apartamento do morador que vai retirar a entrega: ");
         int numeroApartamento = recebeNumero();
 
-        try {
-          moradorQueVaiRetirar = condominio.procurarMoradorPorApto(numeroApartamento);
-          isInvalidNumber = false;
-        } catch (MoradorNaoEncontradoException e) {
-          System.out.println(e.getMessage());
-        }
+        moradorQueVaiRetirar = condominio.procurarMoradorPorApto(numeroApartamento);
+        isInvalidNumber = false;
       }
 
       try {
