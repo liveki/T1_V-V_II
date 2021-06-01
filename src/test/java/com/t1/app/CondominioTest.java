@@ -153,16 +153,6 @@ public class CondominioTest {
   }
 
   @Test
-  public void definirOperadorInexistenteTest() {
-    Condominio c = new Condominio();
-
-    Operador op = new Operador("Operador");
-    c.definirOperadorAtual(op);
-
-    Assertions.assertTrue(c.getOperadorAtual() != op);
-  }
-
-  @Test
   public void carregarOperadoresTest() {
     Condominio c = new Condominio();
 
