@@ -5,6 +5,7 @@ import java.util.Random;
 import com.t1.app.exceptions.MoradorInativoException;
 import com.t1.app.exceptions.MoradorNaoEncontradoException;
 import com.t1.app.exceptions.OperadorComRegistrosException;
+import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -138,5 +139,57 @@ public class CondominioTest {
     Assertions.assertThrows(MoradorInativoException.class, () -> {
       c.retirarEntrega(e, m);
     });
+  }
+
+  @Test
+  public void definirOperadorExistenteTest() {
+    Condominio c = new Condominio();
+
+    Operador op = new Operador("Operador");
+    c.incluirOperador(op);
+    c.definirOperadorAtual(op);
+
+    Assertions.assertTrue(c.getOperadorAtual() == op);
+  }
+
+  @Test
+  public void definirOperadorInexistenteTest() {
+    Condominio c = new Condominio();
+
+    Operador op = new Operador("Operador");
+    c.definirOperadorAtual(op);
+
+    Assertions.assertTrue(c.getOperadorAtual() != op);
+  }
+
+  @Test
+  public void carregarOperadoresTest() {
+    Condominio c = new Condominio();
+
+    List<Operador> ListOp = c.getOperadores();
+    Operador op = ListOp.get(2);
+    c.definirOperadorAtual(op);
+
+    Assertions.assertTrue(c.getOperadorAtual().getNome().equals("Matheu Goes"));
+  }
+
+  @Test
+  public void carregarMoradoresTest() {
+    Condominio c = new Condominio();
+
+    List<Morador> ListMor = c.getMoradores();
+    Morador mor = ListMor.get(2);
+
+    Assertions.assertTrue(mor.getNome().equals("Monique Pariz"));
+  }
+
+  @Test
+  public void carregarEntregasTest() {
+    Condominio c = new Condominio();
+
+    List<Entrega> ListEnt = c.getEntregas();
+    Entrega ent = ListEnt.get(2);
+
+    Assertions.assertTrue(ent.getId() == 3);
   }
 }
